@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Callable
 
-from HashMap import Pair, HashMap
+from .HashMap import Pair, HashMap, defautlHash
 
 
 class Node:
@@ -22,17 +22,26 @@ class LinkedList:
         return lst
 
     def __str__(self):
-        return '[' + ' '.join(list(map(str, self.spread()))) + ']'
+        return '[' + ', '.join(list(map(str, self.spread()))) + ']'
+
+    def __repr__(self):
+        return str(self)
 
 
-class ChainMap(HashMap):
-    def __init__(self, size: int):
-        super().__init__(size)
+class ChainedMap(HashMap):
+    EXPAND_COEF = 0.5
+    MAX_FILL_COEFF = 1.5
+
+    def __init__(self, size: int, hashFunc: Callable[[HashMap, object], int] = defautlHash):
+        super().__init__(size, hashFunc)
         for i in range(self.mapSize()):
             self.arr[i] = LinkedList()
 
+    def calcHash(self, key) -> int:
+        return self.hashFunc(self, key) % self.mapSize()
+
     def __find(self, key) -> Node:
-        i = hash(key) % self.mapSize()
+        i = self.calcHash(key)
         node = self.arr[i].head
         while node.nxt is not None:
             if node.nxt.item.key == key:
@@ -41,6 +50,9 @@ class ChainMap(HashMap):
         return node
 
     def insert(self, obj: Pair) -> bool:
+        if self.fillCoef() > ChainedMap.MAX_FILL_COEFF:
+            self.expand(int(self.mapSize() * ChainedMap.EXPAND_COEF))
+
         node = self.__find(obj.key)
         if node.nxt is None:
             node.nxt = Node(obj, None)
@@ -52,7 +64,7 @@ class ChainMap(HashMap):
     def get(self, key):
         node = self.__find(key)
         if node.nxt is not None:
-            return node.nxt.item
+            return node.nxt.item.value
         else:
             return None
 
@@ -65,19 +77,20 @@ class ChainMap(HashMap):
         else:
             return False
 
+    def keyset(self) -> list:
+        return [item.key for items in self.arr for item in items.spread()]
+
     def expand(self, add: int):
         super().expand(add)
         self.refresh()
 
     def refresh(self):
-        newMap = ChainMap(self.mapSize())
+        newMap = ChainedMap(self.mapSize())
         for i in self.arr:
-            for j in i.spread():
-                newMap.insert(j)
+            if i is not None:
+                for j in i.spread():
+                    newMap.insert(j)
         self.arr = newMap.arr
 
     def getListsFill(self) -> List[int]:
         return [len(i.spread()) for i in self.arr]
-
-    def __str__(self) -> str:
-        return '{\n' + '\n'.join([str(i) for i in self.arr if i.head.nxt is not None]) + '\n}'
