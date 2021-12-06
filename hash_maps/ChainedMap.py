@@ -53,11 +53,11 @@ class ChainedMap(HashMap):
         if self.fillCoef() > ChainedMap.MAX_FILL_COEFF:
             self.expand(int(self.mapSize() * ChainedMap.EXPAND_COEF))
         node = self.__find(obj.key)
-        self._itemsSize += 1
         if node.nxt is not None:
             node.nxt.item.value = obj.value
             return False
         else:
+            self._itemsSize += 1
             node.nxt = Node(obj, None)
             return True
 
@@ -85,7 +85,7 @@ class ChainedMap(HashMap):
         self.refresh()
 
     def refresh(self):
-        newMap = ChainedMap(self.mapSize())
+        newMap = ChainedMap(self.mapSize(), self.hashFunc)
         for i in self.arr:
             for j in i.spread():
                 newMap.insert(j)

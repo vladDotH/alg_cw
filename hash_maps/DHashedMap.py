@@ -46,10 +46,6 @@ class DHashedMap(HashMap):
         super().__init__(nextPrime(size), hashFunc)
         self.hashFunc2 = hashFunc2
 
-    def expand(self, add: int):
-        super().expand(nextPrime(add))
-        self.refresh()
-
     def __probe(self, h1: int, h2: int, i: int) -> int:
         return (h1 + i * h2) % self.mapSize()
 
@@ -59,35 +55,34 @@ class DHashedMap(HashMap):
             raise ArithmeticError('incorrect second hash function')
         return self.hashFunc(self, key), h2,
 
-    def __find(self, key) -> Tuple[int, bool]:
+    def __find(self, key) -> int:
         h1, h2 = self.calcHash(key)
         j = 0
         i = self.__probe(h1, h2, j)
         free = None
         while j < self.mapSize() and self.arr[i] is not None:
             if self.arr[i].item.key == key:
-                return i, True
+                return i
             elif self.arr[i].deleted:
                 free = i
             j += 1
             i = self.__probe(h1, h2, j)
 
-        if free is not None:
-            return free, False
-        else:
-            return i, False
+        return i if free is None else free
 
     def insert(self, obj: Pair) -> bool:
         if self.fillCoef() >= DHashedMap.MAX_FILL_COEFF:
             self.expand(int(self.mapSize() * DHashedMap.EXPAND_COEF))
-        i, res = self.__find(obj.key)
+        i = self.__find(obj.key)
+        res = self.arr[i] is not None and not self.arr[i].deleted
         self.arr[i] = Node(obj)
-        self._itemsSize += 1
+        if not res:
+            self._itemsSize += 1
         return not res
 
     def get(self, key):
-        i, res = self.__find(key)
-        if res:
+        i = self.__find(key)
+        if self.arr[i] is not None and not self.arr[i].deleted:
             return self.arr[i].item.value
         else:
             return None
@@ -96,16 +91,20 @@ class DHashedMap(HashMap):
         return [i.item.key for i in self.arr if i is not None and not i.deleted]
 
     def remove(self, key) -> bool:
-        i, res = self.__find(key)
-        if res:
+        i = self.__find(key)
+        if self.arr[i] is not None and not self.arr[i].deleted:
             self.arr[i].delete()
             self._itemsSize -= 1
             return True
         else:
             return False
 
+    def expand(self, add: int):
+        super().expand(nextPrime(add))
+        self.refresh()
+
     def refresh(self):
-        newMap = DHashedMap(self.mapSize())
+        newMap = DHashedMap(self.mapSize(), self.hashFunc, self.hashFunc2)
         for i in self.arr:
             if i is not None and not i.deleted:
                 newMap.insert(i.item)
