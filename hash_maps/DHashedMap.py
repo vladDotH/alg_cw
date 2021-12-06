@@ -43,7 +43,7 @@ class DHashedMap(HashMap):
 
     def __init__(self, size: int, hashFunc: Callable[[HashMap, object], int] = defautlHash,
                  hashFunc2: Callable[[HashMap, object], int] = defaultHash2):
-        super().__init__(size, hashFunc)
+        super().__init__(nextPrime(size), hashFunc)
         self.hashFunc2 = hashFunc2
 
     def expand(self, add: int):

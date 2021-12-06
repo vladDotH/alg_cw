@@ -81,15 +81,14 @@ class ChainedMap(HashMap):
         return [item.key for items in self.arr for item in items.spread()]
 
     def expand(self, add: int):
-        super().expand(add)
+        self.arr.extend([LinkedList() for i in range(add)])
         self.refresh()
 
     def refresh(self):
         newMap = ChainedMap(self.mapSize())
         for i in self.arr:
-            if i is not None:
-                for j in i.spread():
-                    newMap.insert(j)
+            for j in i.spread():
+                newMap.insert(j)
         self.arr = newMap.arr
 
     def getListsFill(self) -> List[int]:
