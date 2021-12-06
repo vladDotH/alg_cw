@@ -4,7 +4,7 @@ class Pair:
         self.value = value
 
     def __str__(self) -> str:
-        return '{{ {} : {} }}'.format(self.key, self.value)
+        return '( {} : {} )'.format(self.key, self.value)
 
     def __repr__(self):
         return str(self)

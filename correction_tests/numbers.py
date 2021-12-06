@@ -1,5 +1,5 @@
 from hash_maps import Pair, DHashedMap, ChainedMap
-from tests1.maps_comparator import compare
+from maps_comparator import compare
 
 N1 = 6
 dataNonCollision = [
@@ -21,7 +21,8 @@ dataCollision = [
     Pair(7, [1, 2, 3]),
     Pair(18, 18),
     Pair(14, None),
-    Pair(20, 3.14)
+    Pair(20, 3.14),
+    Pair(12, 'new_str')
 ]
 
 if __name__ == "__main__":

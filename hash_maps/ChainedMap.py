@@ -52,14 +52,14 @@ class ChainedMap(HashMap):
     def insert(self, obj: Pair) -> bool:
         if self.fillCoef() > ChainedMap.MAX_FILL_COEFF:
             self.expand(int(self.mapSize() * ChainedMap.EXPAND_COEF))
-
         node = self.__find(obj.key)
-        if node.nxt is None:
-            node.nxt = Node(obj, None)
-            self._itemsSize += 1
-            return True
-        else:
+        self._itemsSize += 1
+        if node.nxt is not None:
+            node.nxt.item.value = obj.value
             return False
+        else:
+            node.nxt = Node(obj, None)
+            return True
 
     def get(self, key):
         node = self.__find(key)

@@ -81,12 +81,9 @@ class DHashedMap(HashMap):
         if self.fillCoef() >= DHashedMap.MAX_FILL_COEFF:
             self.expand(int(self.mapSize() * DHashedMap.EXPAND_COEF))
         i, res = self.__find(obj.key)
-        if res:
-            return False
-        else:
-            self.arr[i] = Node(obj)
-            self._itemsSize += 1
-            return True
+        self.arr[i] = Node(obj)
+        self._itemsSize += 1
+        return not res
 
     def get(self, key):
         i, res = self.__find(key)
