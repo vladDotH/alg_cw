@@ -1,4 +1,5 @@
 from hash_maps import Pair, DHashedMap, ChainedMap
+from testing.maps_comparator import assertion
 import time
 import random
 
@@ -72,9 +73,7 @@ if __name__ == "__main__":
             dt = insertDM(dm, data)
             pt = insertPD(pm, data)
 
-            assert sorted(cm.keyset()) == sorted(dm.keyset()) == sorted(pm.keys())
-            for j in pm.keys():
-                assert cm.get(j) == dm.get(j) == pm[j]
+            assertion(cm, dm, pm)
 
             DEL = n // 2
             toDelete = list(set(random.choices(list(pm.keys()), k=DEL)))
@@ -83,24 +82,20 @@ if __name__ == "__main__":
             dt += deleteDM(dm, toDelete)
             pt += deletePD(pm, toDelete)
 
-            assert sorted(cm.keyset()) == sorted(dm.keyset()) == sorted(pm.keys())
-            for j in pm.keys():
-                assert cm.get(j) == dm.get(j) == pm[j]
+            assertion(cm, dm, pm)
 
             newData = [random.randint(0, MAX_KEY) for _ in range(n)]
             ct += insertCM(cm, newData)
             dt += insertDM(dm, newData)
             pt += insertPD(pm, newData)
 
-            assert sorted(cm.keyset()) == sorted(dm.keyset()) == sorted(pm.keys())
-            for j in pm.keys():
-                assert cm.get(j) == dm.get(j) == pm[j]
+            assertion(cm, dm, pm)
 
             cT.append(ct)
             dT.append(dt)
             pT.append(pt)
 
-        print(f'N = {n}:')
+        print(f'Start length = {START_LEN}, N = {n}:')
         print(f'Task solved by Chained Map '
               f'with average time {(sum(cT) / PROBES) // 1e3} mcs for {PROBES} tests, all time = {sum(cT) / 1e9} s')
         print(f'Task solved by Double Hashed Map '
@@ -111,24 +106,24 @@ if __name__ == "__main__":
 
 
 ''' TEST OUTPUT
-N = 10:
-Task solved by Chained Map with average time 121.0 mcs for 100 tests, all time = 0.012145603 s
-Task solved by Double Hashed Map with average time 174.0 mcs for 100 tests, all time = 0.017428668 s
-Task solved by python dict with average time 5.0 mcs for 100 tests, all time = 0.000542584 s
+Start length = 10, N = 10:
+Task solved by Chained Map with average time 141.0 mcs for 100 tests, all time = 0.014118986 s
+Task solved by Double Hashed Map with average time 213.0 mcs for 100 tests, all time = 0.021348581 s
+Task solved by python dict with average time 6.0 mcs for 100 tests, all time = 0.000649831 s
 ##################################################
-N = 100:
-Task solved by Chained Map with average time 3683.0 mcs for 100 tests, all time = 0.368397977 s
-Task solved by Double Hashed Map with average time 2310.0 mcs for 100 tests, all time = 0.231098895 s
-Task solved by python dict with average time 32.0 mcs for 100 tests, all time = 0.003280555 s
+Start length = 10, N = 100:
+Task solved by Chained Map with average time 4710.0 mcs for 100 tests, all time = 0.471094879 s
+Task solved by Double Hashed Map with average time 3148.0 mcs for 100 tests, all time = 0.314838996 s
+Task solved by python dict with average time 42.0 mcs for 100 tests, all time = 0.004249368 s
 ##################################################
-N = 1000:
-Task solved by Chained Map with average time 52945.0 mcs for 100 tests, all time = 5.294576304 s
-Task solved by Double Hashed Map with average time 28035.0 mcs for 100 tests, all time = 2.803580611 s
-Task solved by python dict with average time 256.0 mcs for 100 tests, all time = 0.025638557 s
+Start length = 10, N = 1000:
+Task solved by Chained Map with average time 56611.0 mcs for 100 tests, all time = 5.661117013 s
+Task solved by Double Hashed Map with average time 30265.0 mcs for 100 tests, all time = 3.026554371 s
+Task solved by python dict with average time 269.0 mcs for 100 tests, all time = 0.026978653 s
 ##################################################
-N = 10000:
-Task solved by Chained Map with average time 562107.0 mcs for 100 tests, all time = 56.210758877 s
-Task solved by Double Hashed Map with average time 292236.0 mcs for 100 tests, all time = 29.223615809 s
-Task solved by python dict with average time 2498.0 mcs for 100 tests, all time = 0.249829485 s
+Start length = 10, N = 10000:
+Task solved by Chained Map with average time 592642.0 mcs for 100 tests, all time = 59.264219204 s
+Task solved by Double Hashed Map with average time 311453.0 mcs for 100 tests, all time = 31.145343531 s
+Task solved by python dict with average time 2553.0 mcs for 100 tests, all time = 0.255348443 s
 ##################################################
 '''

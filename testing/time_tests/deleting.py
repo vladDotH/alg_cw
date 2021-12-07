@@ -56,20 +56,20 @@ if __name__ == "__main__":
         print('#' * 50)
 
 ''' TEST OUTPUT
-Deleted all 10 items in Chained Map with average time 10.0 mcs for 100 tests, all time = 0.001025149 s
-Deleted all 10 items in Double Hashed Map with average time 22.0 mcs for 100 tests, all time = 0.002228118 s
-Deleted all 10 items in python dict with average time 0.0 mcs for 100 tests, all time = 8.1671e-05 s
+Deleted all 10 items in Chained Map with average time 9.0 mcs for 100 tests, all time = 0.000937549 s
+Deleted all 10 items in Double Hashed Map with average time 20.0 mcs for 100 tests, all time = 0.002016884 s
+Deleted all 10 items in python dict with average time 0.0 mcs for 100 tests, all time = 7.2243e-05 s
 ##################################################
-Deleted all 100 items in Chained Map with average time 104.0 mcs for 100 tests, all time = 0.010463553 s
-Deleted all 100 items in Double Hashed Map with average time 261.0 mcs for 100 tests, all time = 0.026182143 s
-Deleted all 100 items in python dict with average time 5.0 mcs for 100 tests, all time = 0.000541691 s
+Deleted all 100 items in Chained Map with average time 94.0 mcs for 100 tests, all time = 0.009436975 s
+Deleted all 100 items in Double Hashed Map with average time 228.0 mcs for 100 tests, all time = 0.022852996 s
+Deleted all 100 items in python dict with average time 4.0 mcs for 100 tests, all time = 0.000479309 s
 ##################################################
-Deleted all 1000 items in Chained Map with average time 1007.0 mcs for 100 tests, all time = 0.100732934 s
-Deleted all 1000 items in Double Hashed Map with average time 2445.0 mcs for 100 tests, all time = 0.244504677 s
-Deleted all 1000 items in python dict with average time 47.0 mcs for 100 tests, all time = 0.004737376 s
+Deleted all 1000 items in Chained Map with average time 991.0 mcs for 100 tests, all time = 0.099167684 s
+Deleted all 1000 items in Double Hashed Map with average time 2315.0 mcs for 100 tests, all time = 0.231515583 s
+Deleted all 1000 items in python dict with average time 42.0 mcs for 100 tests, all time = 0.004271671 s
 ##################################################
-Deleted all 10000 items in Chained Map with average time 16323.0 mcs for 100 tests, all time = 1.63236785 s
-Deleted all 10000 items in Double Hashed Map with average time 31773.0 mcs for 100 tests, all time = 3.177328269 s
-Deleted all 10000 items in python dict with average time 656.0 mcs for 100 tests, all time = 0.065617894 s
+Deleted all 10000 items in Chained Map with average time 16164.0 mcs for 100 tests, all time = 1.616496639 s
+Deleted all 10000 items in Double Hashed Map with average time 29335.0 mcs for 100 tests, all time = 2.933574184 s
+Deleted all 10000 items in python dict with average time 587.0 mcs for 100 tests, all time = 0.058792608 s
 ##################################################
 '''

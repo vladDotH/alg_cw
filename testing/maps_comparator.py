@@ -3,8 +3,16 @@ from typing import List, Tuple
 from hash_maps import ChainedMap, DHashedMap, Pair
 
 
-def compare_insertion(cm: ChainedMap, dm: DHashedMap, pm: dict,
-                      data: List[Pair], printing: bool = True):
+def assertion(cm: ChainedMap, dm: DHashedMap, pm: dict, printing=False):
+    assert cm.itemsSize() == dm.itemsSize() == len(pm)
+    assert sorted(cm.keyset()) == sorted(dm.keyset()) == sorted(pm.keys())
+    for i in list(pm.keys()):
+        assert cm.get(i) == dm.get(i) == pm[i]
+        if printing:
+            print(f"key: {i}, values: {cm.get(i)} | {dm.get(i)} | {pm[i]}")
+
+
+def compare_insertion(cm: ChainedMap, dm: DHashedMap, pm: dict, data: List[Pair], printing: bool = True):
     for i in data:
         cm.insert(i)
         dm.insert(i)
@@ -21,18 +29,12 @@ def compare_insertion(cm: ChainedMap, dm: DHashedMap, pm: dict,
         print('_' * 50)
         print('Comparison:')
 
-    assert cm.itemsSize() == dm.itemsSize() == len(pm)
-    assert sorted(cm.keyset()) == sorted(dm.keyset()) == sorted(pm.keys())
-    for i in data:
-        assert cm.get(i.key) == dm.get(i.key) == pm[i.key]
-        if printing:
-            print(f"key: {i.key}, values: {cm.get(i.key)} | {dm.get(i.key)} | {pm[i.key]}")
+    assertion(cm, dm, pm, printing)
     print('insertion finished successfully')
     print('#' * 50)
 
 
-def compare_deleting(cm: ChainedMap, dm: DHashedMap, pm: dict,
-                     keys: list, printing: bool = True):
+def compare_deleting(cm: ChainedMap, dm: DHashedMap, pm: dict, keys: list, printing: bool = True):
     for i in keys:
         cm.remove(i)
         dm.remove(i)
@@ -49,11 +51,6 @@ def compare_deleting(cm: ChainedMap, dm: DHashedMap, pm: dict,
         print('_' * 50)
         print('Comparison:')
 
-    assert cm.itemsSize() == dm.itemsSize() == len(pm)
-    assert sorted(cm.keyset()) == sorted(dm.keyset()) == sorted(pm.keys())
-    for i in pm.keys():
-        assert cm.get(i) == dm.get(i) == pm[i]
-        if printing:
-            print(f'key: {i}, values: {cm.get(i)} | {dm.get(i)} | {pm[i]}')
+    assertion(cm, dm, pm, printing)
     print('deleting finished successfully')
     print('#' * 50)

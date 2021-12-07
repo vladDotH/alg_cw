@@ -66,20 +66,20 @@ if __name__ == "__main__":
 
 
 ''' TEST OUTPUT
-Found all items in Chained Map with size = 100 with average time 1189 ns for 100 tests, all time = 0.011890376 s
-Found all items in Double Hashed Map with size = 149 with average time 2448 ns for 100 tests, all time = 0.024483182 s
-Found all items in python dict with size = 100 with average time 149 ns for 100 tests, all time = 0.001490118 s
+Found all items in Chained Map with size = 100 with average time 1085 ns for 100 tests, all time = 0.010858023 s
+Found all items in Double Hashed Map with size = 149 with average time 2569 ns for 100 tests, all time = 0.025699018 s
+Found all items in python dict with size = 100 with average time 115 ns for 100 tests, all time = 0.001158311 s
 ##################################################
-Found all items in Chained Map with size = 1000 with average time 1028 ns for 100 tests, all time = 0.102807026 s
-Found all items in Double Hashed Map with size = 1429 with average time 3348 ns for 100 tests, all time = 0.334850222 s
-Found all items in python dict with size = 1000 with average time 128 ns for 100 tests, all time = 0.012818644 s
+Found all items in Chained Map with size = 1000 with average time 1059 ns for 100 tests, all time = 0.105911365 s
+Found all items in Double Hashed Map with size = 1429 with average time 2819 ns for 100 tests, all time = 0.281961068 s
+Found all items in python dict with size = 1000 with average time 170 ns for 100 tests, all time = 0.017064445 s
 ##################################################
-Found all items in Chained Map with size = 10000 with average time 1521 ns for 100 tests, all time = 1.52185614 s
-Found all items in Double Hashed Map with size = 14293 with average time 3169 ns for 100 tests, all time = 3.169557833 s
-Found all items in python dict with size = 10000 with average time 138 ns for 100 tests, all time = 0.138550454 s
+Found all items in Chained Map with size = 10000 with average time 1551 ns for 100 tests, all time = 1.551005037 s
+Found all items in Double Hashed Map with size = 14293 with average time 2982 ns for 100 tests, all time = 2.982108829 s
+Found all items in python dict with size = 10000 with average time 130 ns for 100 tests, all time = 0.130166659 s
 ##################################################
-Found all items in Chained Map with size = 100000 with average time 1533 ns for 100 tests, all time = 15.331074181 s
-Found all items in Double Hashed Map with size = 142867 with average time 3177 ns for 100 tests, all time = 31.773628002 s
-Found all items in python dict with size = 100000 with average time 214 ns for 100 tests, all time = 2.148154342 s
+Found all items in Chained Map with size = 100000 with average time 1691 ns for 100 tests, all time = 16.911993505 s
+Found all items in Double Hashed Map with size = 142867 with average time 2978 ns for 100 tests, all time = 29.787553976 s
+Found all items in python dict with size = 99997 with average time 216 ns for 100 tests, all time = 2.16109659 s
 ##################################################
 '''

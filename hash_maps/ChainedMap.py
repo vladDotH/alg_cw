@@ -34,14 +34,14 @@ class ChainedMap(HashMap):
 
     def __init__(self, size: int, hashFunc: Callable[[HashMap, object], int] = defautlHash):
         super().__init__(size, hashFunc)
-        for i in range(self.mapSize()):
-            self.arr[i] = LinkedList()
 
     def calcHash(self, key) -> int:
         return self.hashFunc(self, key) % self.mapSize()
 
     def __find(self, key) -> Node:
         i = self.calcHash(key)
+        if self.arr[i] is None:
+            self.arr[i] = LinkedList()
         node = self.arr[i].head
         while node.nxt is not None:
             if node.nxt.item.key == key:
@@ -78,7 +78,7 @@ class ChainedMap(HashMap):
             return False
 
     def keyset(self) -> list:
-        return [item.key for items in self.arr for item in items.spread()]
+        return [item.key for items in self.arr if items is not None for item in items.spread()]
 
     def expand(self, add: int):
         self.arr.extend([LinkedList() for i in range(add)])
@@ -87,9 +87,10 @@ class ChainedMap(HashMap):
     def refresh(self):
         newMap = ChainedMap(self.mapSize(), self.hashFunc)
         for i in self.arr:
-            for j in i.spread():
-                newMap.insert(j)
+            if i is not None:
+                for j in i.spread():
+                    newMap.insert(j)
         self.arr = newMap.arr
 
     def getListsFill(self) -> List[int]:
-        return [len(i.spread()) for i in self.arr]
+        return [len(i.spread()) if i is not None else 0 for i in self.arr]
