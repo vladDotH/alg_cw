@@ -22,10 +22,10 @@ def strTest1(printing=True):
     compare_deleting(cm, dm, pm, ['world', 'hash', 'hello'], printing)
 
 
-def strTest2(printing=True):
+def strTest2(printing=False):
     WORD_LEN = 10
     START = 10
-    N = 100
+    N = 1000
     data = [
         Pair(''.join(random.choices(string.ascii_letters, k=WORD_LEN)), i) for i in range(N)
     ]
@@ -33,7 +33,7 @@ def strTest2(printing=True):
     dm = DHashedMap(START, lambda hm, s: str_hash(s))
     pm = dict()
     compare_insertion(cm, dm, pm, data, printing)
-    DELETE = 30
+    DELETE = 150
     compare_deleting(cm, dm, pm, list(set(random.choices(list(pm.keys()), k=DELETE))), printing)
 
 
